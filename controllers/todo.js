@@ -1,11 +1,15 @@
 const todoModel = require("../models/todo");
 
 exports.getAllTodo = (req, res, next) => {
-  todoModel.getAllTodo((err, todos) => {
+  const limit = 10;
+  const page = req.query.page || 1;
+  const offset = (page - 1) * limit;
+  todoModel.getAllTodo(limit, offset, (err, total, todos) => {
     if (err) {
       res.send(err);
     }
-    res.render("index", { todos });
+    const total_pages = Math.ceil(total.length / limit);
+    res.render("index", { todos, total_pages, current_page: page });
   });
 };
 
@@ -22,16 +26,14 @@ exports.getSingleTodo = (req, res, next) => {
 
 exports.createTodo = (req, res, next) => {
   const new_todo = new todoModel(req.body);
-  console.log(new_todo);
   if (!req.body) {
     req.status(400).send("please fill all fields");
   } else {
-    console.log("valid");
-    todoModel.createTodo(new_todo, (err, todo) => {
+    todoModel.createTodo(new_todo, (err) => {
       if (err) {
         res.status(500).send("server error");
       }
-      return res.json({ status: true, data: todo });
+      return res.redirect("/");
     });
   }
 };
@@ -41,7 +43,7 @@ exports.updateDoneTodo = (req, res, next) => {
     if (err) {
       res.status(500).send("server error");
     }
-    return res.send("successfully");
+    return res.redirect("/");
   });
 };
 

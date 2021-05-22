@@ -1,22 +1,30 @@
 const dbConnection = require("../config/db_config");
 
 const todo = function (todo) {
-  this.name = todo.name;
   this.description = todo.description;
-  this.done = todo.done ? todo.done : "no";
-  this.createAt = new Date();
-  this.updateAt = new Date();
+  this.done = todo.done ? todo.done : "false";
+  this.createdAt = new Date();
 };
 
-todo.getAllTodo = (result) => {
-  dbConnection.query("SELECT * FROM todos ORDER BY createAt", (err, res) => {
+todo.getAllTodo = (limit, offset, result) => {
+  dbConnection.query(`SELECT * FROM todos`, (err, total) => {
     if (err) {
       console.log("error", err);
       result(null, err);
-    } else {
-      console.log("successfully");
-      result(null, res);
     }
+    dbConnection.query(
+      `SELECT * FROM todos ORDER BY id DESC LIMIT ${limit} OFFSET ${offset}`,
+      (err, res) => {
+        console.log(result, result.length);
+        if (err) {
+          console.log("error", err);
+          result(null, err);
+        } else {
+          console.log("successfully");
+          result(null, total, res);
+        }
+      }
+    );
   });
 };
 
@@ -46,7 +54,7 @@ todo.createTodo = (todoReqData, result) => {
 
 todo.updateDoneTodo = (id, result) => {
   dbConnection.query(
-    "UPDATE todos SET done = 'yes' WHERE id = ?",
+    "UPDATE todos SET done = 'true' WHERE id = ?",
     id,
     (err, res) => {
       if (err) {
