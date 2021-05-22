@@ -25,17 +25,16 @@ exports.getSingleTodo = (req, res, next) => {
 };
 
 exports.createTodo = (req, res, next) => {
-  const new_todo = new todoModel(req.body);
   if (!req.body) {
     req.status(400).send("please fill all fields");
-  } else {
-    todoModel.createTodo(new_todo, (err) => {
-      if (err) {
-        res.status(500).send("server error");
-      }
-      return res.redirect("/");
-    });
   }
+  const new_todo = new todoModel(req.body);
+  todoModel.createTodo(new_todo, (err) => {
+    if (err) {
+      res.status(500).send("server error");
+    }
+    return res.redirect("/");
+  });
 };
 
 exports.updateDoneTodo = (req, res, next) => {

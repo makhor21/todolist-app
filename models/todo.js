@@ -3,7 +3,9 @@ const dbConnection = require("../config/db_config");
 const todo = function (todo) {
   this.description = todo.description;
   this.done = todo.done ? todo.done : "false";
+  this.user_id = todo.user_id;
   this.createdAt = new Date();
+  this.updatedAt = new Date();
 };
 
 todo.getAllTodo = (limit, offset, result) => {

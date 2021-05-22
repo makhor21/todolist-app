@@ -6,6 +6,7 @@ const logger = require("morgan");
 const methodOverride = require("method-override");
 
 const todoRouter = require("./routes/todo");
+const userRouter = require("./routes/user");
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
 
-app.use("/", todoRouter);
+app.use("/todo", todoRouter);
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
