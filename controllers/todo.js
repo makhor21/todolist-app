@@ -5,8 +5,7 @@ exports.getAllTodo = (req, res, next) => {
     if (err) {
       res.send(err);
     }
-    console.log("todos", todos);
-    res.send(todos);
+    res.render("index", { todos });
   });
 };
 

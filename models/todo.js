@@ -9,7 +9,7 @@ const todo = function (todo) {
 };
 
 todo.getAllTodo = (result) => {
-  dbConnection.query("SELECT * FROM todos", (err, res) => {
+  dbConnection.query("SELECT * FROM todos ORDER BY createAt", (err, res) => {
     if (err) {
       console.log("error", err);
       result(null, err);
