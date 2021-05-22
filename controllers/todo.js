@@ -59,6 +59,6 @@ exports.deleteTodo = (req, res, next) => {
     if (err) {
       res.status(500).send("server error");
     }
-    return res.json({ status: true });
+    return res.redirect("/");
   });
 };
