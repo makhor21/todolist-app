@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="stylesheets/style.css" />
+    <title>Register Page</title>
+  </head>
+  <body class="bg-light">
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="card mt-5 mb-5 w-50 m-auto">
+        <div class="card-header">Register</div>
+        <div class="card-body mt-3">
+          <div
+            class="alert alert-danger d-none text-center"
+            id="alertmsg"
+            role="alert"
+          >
+            Password does not match
+          </div>
+          <form action="/user/register" method="post">
+            <div class="input-group mb-3">
+              <span
+                class="input-group-text col-6 col-md-4 col-lg-3"
+                id="basic-addon3"
+                >First Name</span
+              >
+              <input type="text" class="form-control col-6 col-md-8 col-lg-9""
+              aria-describedby="basic-addon3" name="first_name" required />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                class="input-group-text col-6 col-md-4 col-lg-3"
+                id="basic-addon3"
+                >Last Name</span
+              >
+              <input type="text" class="form-control col-6 col-md-8 col-lg-9""
+              aria-describedby="basic-addon3" name="last_name" required />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                class="input-group-text col-6 col-md-4 col-lg-3"
+                id="basic-addon3"
+                >Email</span
+              >
+              <input type="email" class="form-control col-6 col-md-8 col-lg-9""
+              aria-describedby="basic-addon3" name="email" required />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                class="input-group-text col-6 col-md-4 col-lg-3"
+                id="basic-addon3"
+                >Username</span
+              >
+              <input type="text" class="form-control col-6 col-md-8 col-lg-9""
+              aria-describedby="basic-addon3" name="username" required />
+            </div>
+            <div class="input-group mb-3">
+              <span
+                class="input-group-text col-6 col-md-4 col-lg-3"
+                id="basic-addon3"
+                >Password</span
+              >
+              <input type="password" class="form-control col-6 col-md-8
+              col-lg-9"" aria-describedby="basic-addon3" name="password"
+              id="password" required />
+            </div>
+            <div class="input-group mb-4">
+              <span
+                class="input-group-text col-6 col-md-4 col-lg-3"
+                id="basic-addon3"
+                >Confirm Password</span
+              >
+              <input type="password" class="form-control col-6 col-md-8
+              col-lg-9"" aria-describedby="basic-addon3" id="confirm_password"
+              required />
+            </div>
+            <div class="input-group mb-3">
+              <a class="m-auto" href="/user/login"
+                >Do you have an account with us?</a
+              >
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="submit"
+                class="btn btn-success m-auto"
+                id="submit"
+                onclick="return Validate()"
+                value="Register"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function Validate() {
+        const password = document.getElementById("password").value;
+        const confirm_password =
+          document.getElementById("confirm_password").value;
+        if (password !== confirm_password) {
+          document.getElementById("alertmsg").classList.remove("d-none");
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </body>
+</html>

@@ -4,7 +4,10 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const flash = require("req-flash");
 
+const apiRouter = require("./routes/api");
 const todoRouter = require("./routes/todo");
 const userRouter = require("./routes/user");
 
@@ -18,9 +21,13 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: "123" }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
 
+app.use(flash());
+
+app.use("/", apiRouter);
 app.use("/todo", todoRouter);
 app.use("/user", userRouter);
 

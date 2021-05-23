@@ -5,29 +5,32 @@ const todo = function (todo) {
   this.done = todo.done ? todo.done : "false";
   this.user_id = todo.user_id;
   this.createdAt = new Date();
-  this.updatedAt = new Date();
 };
 
-todo.getAllTodo = (limit, offset, result) => {
-  dbConnection.query(`SELECT * FROM todos`, (err, total) => {
-    if (err) {
-      console.log("error", err);
-      result(null, err);
-    }
-    dbConnection.query(
-      `SELECT * FROM todos ORDER BY id DESC LIMIT ${limit} OFFSET ${offset}`,
-      (err, res) => {
-        console.log(result, result.length);
-        if (err) {
-          console.log("error", err);
-          result(null, err);
-        } else {
-          console.log("successfully");
-          result(null, total, res);
-        }
+todo.getAllTodo = (user_id, limit, offset, result) => {
+  dbConnection.query(
+    `SELECT * FROM todos WHERE user_id = ?`,
+    user_id,
+    (err, total) => {
+      if (err) {
+        console.log("error", err);
+        result(null, err);
       }
-    );
-  });
+      dbConnection.query(
+        `SELECT * FROM todos WHERE user_id = ${user_id} ORDER BY id DESC LIMIT ${limit} OFFSET ${offset}`,
+        (err, res) => {
+          console.log(result, result.length);
+          if (err) {
+            console.log("error", err);
+            result(null, err);
+          } else {
+            console.log("successfully");
+            result(null, total, res);
+          }
+        }
+      );
+    }
+  );
 };
 
 todo.getSingleTodo = (id, result) => {

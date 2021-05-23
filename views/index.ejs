@@ -15,16 +15,23 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="stylesheets/style.css" />
     <title>Todo List APP</title>
   </head>
   <body class="bg-light">
+    <%- include('partials/navbar-todo') %>
     <div class="container">
       <div class="card mt-5 mb-5">
         <div class="card-header">Todo List</div>
         <div class="card-body">
-          <form action="/" method="POST">
-            <div class="row g-3">
-              <div class="col">
+          <form action="/todo" method="POST">
+            <div class="row g-4 d-flex justify-content-around">
+              <div class="col-11">
                 <input
                   type="text"
                   class="form-control"
@@ -32,10 +39,10 @@
                   name="description"
                 />
               </div>
-              <div class="col-1">
+              <div class="col-2">
                 <input
                   type="submit"
-                  class="form-control btn btn-success"
+                  class="form-control btn btn-success w-75"
                   value="Add"
                 />
               </div>
@@ -64,7 +71,7 @@
                 <% } else{ %>
                 <th>
                   <form
-                    action="/<%= todos[index].id %>?_method=PATCH"
+                    action="/todo/<%= todos[index].id %>?_method=PATCH"
                     method="POST"
                     enctype="application/x-www-form-urlencoded"
                   >
@@ -86,7 +93,7 @@
                 <% } %>
                 <td>
                   <form
-                    action="/<%= todos[index].id %>?_method=DELETE"
+                    action="/todo/<%= todos[index].id %>?_method=DELETE"
                     method="POST"
                     enctype="application/x-www-form-urlencoded"
                   >
